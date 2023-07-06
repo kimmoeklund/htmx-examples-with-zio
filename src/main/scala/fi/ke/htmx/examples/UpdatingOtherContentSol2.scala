@@ -58,7 +58,7 @@ object UpdatingOtherContentSol2:
     """.stripMargin
     ) ++ form
 
-  def apply(): UHttpApp = Http.collectZIO[Request] {
+  def apply(): UHttpApp = Http.collectZIO[Request]:
     case Method.GET -> Root / this.path => ZIO.succeed(Response.html(page))
 
     case req @ Method.POST -> Root / this.path =>
@@ -71,6 +71,5 @@ object UpdatingOtherContentSol2:
         _ => ZIO.succeed(Response.status(Status.BadRequest)),
         (name, email) => ZIO.succeed(htmlSnippet(otherContentResponse(name, email)))
       )
-  }
 
 end UpdatingOtherContentSol2

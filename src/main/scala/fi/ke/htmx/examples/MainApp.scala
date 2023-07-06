@@ -11,9 +11,9 @@ object MainApp extends ZIOAppDefault:
   override val bootstrap: ZLayer[ZIOAppArgs, Any, Any] =
     Runtime.removeDefaultLoggers >>> SLF4J.slf4j
 
-  private val indexPage = Http.collectHttp[Request] { case Method.GET -> Root =>
+  private val indexPage = Http.collectHttp[Request]:
+    case Method.GET -> Root =>
     Http.fromFile(new File("src/main/resources/index.html"))
-  }
 
   def run: ZIO[Any, Throwable, Unit] =
     Server
